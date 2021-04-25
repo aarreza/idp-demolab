@@ -1,0 +1,12 @@
+# Manual Ansible scripts
+
+# Command to add dc to domain
+ansible-playbook domain-controllers.yml --inventory inventory_azure_rm.yml \
+  -e AZURE_RESOURCE_GROUPS=aa-identity-lab \
+  --user drew --ask-pass
+
+
+# Command to add dc to domain
+ansible-playbook workstations.yml --inventory inventory_azure_rm.yml \
+    -e AZURE_RESOURCE_GROUPS=aa-identity-lab \
+    --user localadmin --ask-pass

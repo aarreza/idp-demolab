@@ -1,0 +1,30 @@
+---
+- name: Configure domain controllers
+  hosts: domain_controllers
+  gather_facts: no
+  vars:
+    domain_name: drewlearnscloud.blog
+    domain_admin: drew@drewlearnscloud.blog
+    domain_admin_password: Pizza123!
+    safe_mode_password: Pizza123!
+  tasks:
+  - name: Ensure domain is created
+    win_domain:
+      dns_domain_name: drewlearnscloud.blog
+      safe_mode_password: Pizza123!
+    register: domain_creation
+  - name: Reboot if domain was just created
+    win_reboot: {}
+    when: domain_creation.reboot_required
+  - name: Ensure domain controllers are promoted
+    win_domain_controller:
+      dns_domain_name: drewlearnscloud.blog
+      domain_admin_user: drew@drewlearnscloud.blog
+      domain_admin_password: Pizza123!
+      safe_mode_password: Pizza123!
+      state: domain_controller
+      log_path: C:\Windows\Temp\promotion.txt
+    register: dc_promotion
+  - name: Reboot if server was just promoted to a domain controller
+    win_reboot: {}
+    when: dc_promotion.reboot_required

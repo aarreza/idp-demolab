@@ -1,0 +1,13 @@
+# Place in ansible/inventory_azure_rm.yml
+plugin: azure_rm
+auth_source: cli
+include_vm_resource_groups:
+- aa-identity-lab
+conditional_groups:
+  # Place every VM with the tag "kind" == "domain_controller" in the "domain_controllers" Ansible host group
+  domain_controllers: "tags.kind == 'domain_controller'"
+  # Place every VM with the tag "kind" == "workstations" in the "workstations" Ansible host group
+  workstations: "tags.kind == 'workstation'"
+keyed_groups:
+- prefix: tag
+  key: tags
