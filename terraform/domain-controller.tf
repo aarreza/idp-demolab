@@ -1,7 +1,8 @@
 # Note: you'll need to run 'terraform init' before terraform apply-ing this, because 'random_password' is a new provider
 # Generates a random password for our domain controller
 resource "random_password" "domain_controller_password" {
-  length = 8
+  length = 16
+  special = false
 }
 
 # VM for our domain controller
