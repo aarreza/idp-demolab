@@ -3,10 +3,10 @@ output "domain_controller_public_ip" {
   value = azurerm_public_ip.main.ip_address
 }
 
-# Display the dc local admin username
-output "local_admin_dc_username" {
-  value = nonsensitive(azurerm_virtual_machine.domain_controller.os_profile[*].admin_username)
-}
+# # Display the dc local admin username
+# output "local_admin_dc_username" {
+#   value = nonsensitive(azurerm_virtual_machine.domain_controller.os_profile[*].admin_username)
+# }
 
 # Displays the domain controller password
 output "domain_controller_password" {
